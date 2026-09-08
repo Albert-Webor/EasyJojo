@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyjojo.model1.mappers.KdpaSubAcctMapper">
+
+    <select id="selKdpaSubAcctWithAcctNum" resultType="com.easyjojo.model1.models.entity.Kdpa_Sub_Acct">
+        SELECT *
+        FROM kdpa_sub_acct
+        WHERE cust_acct_num = #{custAcctNum}
+    </select>
+
+</mapper>

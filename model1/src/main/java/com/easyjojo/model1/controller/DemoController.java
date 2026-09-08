@@ -2,14 +2,12 @@ package com.easyjojo.model1.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.easyjojo.common.result.Result;
-import com.easyjojo.model1.mapper.KdpaSubAcctMapper;
+import com.easyjojo.model1.mappers.KdpaSubAcctMapper;
 import com.easyjojo.model1.models.entity.Kdpa_Sub_Acct;
 import com.easyjojo.model1.models.vo.kdpaSubAcctComplex;
+import com.easyjojo.model1.services.KdpaSubAcctService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,17 +18,16 @@ public class DemoController {
 
     @Autowired
     private KdpaSubAcctMapper kdpaSubAcctMapper;
+    @Autowired
+    KdpaSubAcctService kdpaSubAcctService;
 
     /**
      * 原有 Mock 模拟数据接口
      */
     @GetMapping("/hello")
-    public Result<kdpaSubAcctComplex> hello() {
+    public Result<kdpaSubAcctComplex> hello(@RequestParam("custAcctNum")String custAcctNum) {
         kdpaSubAcctComplex complex = new kdpaSubAcctComplex();
-
-        Kdpa_Sub_Acct acct = new Kdpa_Sub_Acct();
-        acct.setCustAcctNum("123456789");
-        acct.setAcctBal(new BigDecimal("1000.00"));
+        Kdpa_Sub_Acct acct = kdpaSubAcctService.getAccountByAcctNum(custAcctNum);
         complex.kdpaSubAcct = acct;
 
         return Result.success(complex);
